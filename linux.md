@@ -28,7 +28,7 @@
 
 ## mkdir
 
-> 递归创建目录
+> 递归创建目录
 
 ```bash
   mkdir - p test1/test2/test3
