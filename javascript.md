@@ -23,7 +23,7 @@ DOM
 │    └── 扩展了DOM Core，涉及XML Infoset、XPath和XML Base。
 ```
 
-## 数据类型 6种
+## 数据类型 7种
 
 `Undefined`、`Null`、`Boolean`、`Number`、`String`、`Object`、`Symbol`<sup>ES6新增</sup>
 
@@ -60,3 +60,58 @@ typeof function() {}  // 'function'
 * 离开作用域的值将被自动标记为可回首，因此将在垃圾收集期间被删除。
 * 垃圾收集: 标记清除、引用计数（不再使用）。
 * 解除变量的引用(手动设置值为`null`)不仅有助于消除循环引用现象，而且对垃圾收集也有好处。
+
+### Array
+
+* 栈方法 LIFO
+  * push
+  * pop
+
+* 队列 FIFO
+  * push
+  * shift
+
+* 反对列
+  * unshift
+  * pop
+
+* 排序
+  * reverse
+  * sort
+
+* 位置
+  * indexOf
+  * lastIndexOf
+
+* 迭代
+  * every
+  * filter
+  * forEach
+  * map
+  * some
+
+* 归并
+  * reduce
+  * reduceRight
+
+* 其他
+  * concat 不改变原数组
+  * slice  不改变原数组 [start, end)
+  * splice 删除/插入/替换
+
+
+## 题目
+
+1. 创建 Object 实例的方法
+  * 使用 new 操作符后跟 Object 构造函数
+  * 使用对象字面量表示法（不会调用 Object 构造函数）
+
+2. 创建数组的方法
+  * 使用 new + Array 构造函数（new可省略）
+  * 使用数组字面量表示法
+
+3. [以下代码的结果](http://jsrun.net/uuhKp/edit)
+  ```
+    [].copyWithin.call({3: 1, length: 5}, 0, 3);
+  ```
+
