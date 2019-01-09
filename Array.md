@@ -27,7 +27,7 @@ console.log(arr3);
 ```
 
 
-## copyWithin(target[, start[, end]]) <sup>*`ES6`*</sup>
+## copyWithin(target[, start[, end]]) <sup>*ES6*</sup>
 
 > 从数组的指定位置浅拷贝元素到数组的另一个指定位置，不包括`end`；  
 不会修改数组的长度；  
@@ -52,7 +52,7 @@ console.log(arr3);
 ```
 
 
-## entries() <sup>*`ES6`*</sup>
+## entries() <sup>*ES6*</sup>
 
 > 返回Array Iterator
 
@@ -167,7 +167,7 @@ console.log(arr);
 ```
 
 
-## fill(value[, start[, end]]) <sup>*`ES6`*</sup>
+## fill(value[, start[, end]]) <sup>*ES6*</sup>
 
 > 用一个固定值填充／替换数组元素；  
 `start`默认为0，`end`默认为`this.length`，不包括`end`;  
@@ -216,4 +216,88 @@ function filterItems(query) {
 }
 filterItems('ap');    // ['apple', 'grapes']
 filterItems('an');    // ['banana', 'mango', 'orange']
+```
+
+
+## find(callback(item[, index[, array]])[, thisArg]) <sup>*es6*</sup>
+
+* 遍历数组元素调用`callback`函数，返回使`callback`返回`true`(等价于`true`)的第一个元素，否则返回`undefined`；
+* 所有索引都会调用`callback`函数，所以对于稀疏数组，调用`find`方法比`every`、`filter`要慢;
+* 在遍历开始后，添加到数组中的元素不会被`callback`访问到，例如`push`；
+* 在遍历开始后，被删除的元素仍会被访问到；:red_circle:
+* 被修改的元素传入`callback`的值是访问到他们那一刻的值；
+* 不会改变原数组。
+
+```js
+// find + push
+function isBigEnough(value, index, array) {
+  if (index === 0) {
+    array.push(14);
+  }
+  console.log(`${index}: ${value}`);
+  return value > 11;
+}
+let arr = [11, 12, 13];
+console.log(arr.find(isBigEnough));
+console.log(arr);
+// 0: 11
+// 1: 12
+// 12
+// 11,12,13,14
+```
+
+```js
+// find + pop
+function isBigEnough(value, index, array) {
+  if (index === 0) {
+    array.pop();
+  }
+  console.log(`${index}: ${value}`);
+  return value > 12;
+}
+let arr = [11, 12, 13];
+console.log(arr.find(isBigEnough));
+console.log(arr);
+// 0: 11
+// 1: 12
+// 2: undefined
+// 空字符串
+// 11,12
+```
+
+```js
+// find + shift
+function isBigEnough(value, index, array) {
+  if (index === 0) {
+    array.shift();
+  }
+  console.log(`${index}: ${value}`);
+  return value > 11;
+}
+let arr = [11, 12, 13];
+console.log(arr.find(isBigEnough));
+console.log(arr);
+// 0: 11
+// 1: 13
+// 13
+// 12,13
+```
+
+```
+// find + unshift
+function isBigEnough(value, index, array) {
+  if (index === 0) {
+    array.unshift(10);
+  }
+  console.log(`${index}: ${value}`);
+  return value > 11;
+}
+let arr = [11, 12, 13];
+console.log(arr.find(isBigEnough));
+console.log(arr);
+// 0: 11 
+// 1: 11
+// 2: 12
+// 12
+// 10,11,12,13
 ```
