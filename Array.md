@@ -219,14 +219,33 @@ filterItems('an');    // ['banana', 'mango', 'orange']
 ```
 
 
-## find(callback(item[, index[, array]])[, thisArg]) <sup>*es6*</sup>
+## find(callback(item[, index[, array]])[, thisArg]) <sup>*ES6*</sup>
 
 * 遍历数组元素调用`callback`函数，返回使`callback`返回`true`(等价于`true`)的第一个元素，否则返回`undefined`；
 * 所有索引都会调用`callback`函数，所以对于稀疏数组，调用`find`方法比`every`、`filter`要慢;
 * 在遍历开始后，添加到数组中的元素不会被`callback`访问到，例如`push`；
 * 在遍历开始后，被删除的元素仍会被访问到；:red_circle:
 * 被修改的元素传入`callback`的值是访问到他们那一刻的值；
+* 空数组调用`find`返回`undefined`；
 * 不会改变原数组。
+
+```js
+function isBigEnough(value, index, array) {
+  if (index === 0) {
+    delete array[2];
+  }
+  console.log(`${index}: ${value}`);
+  return value > 12;
+}
+let arr = [11, 12, 13];
+console.log(arr.find(isBigEnough));
+console.log(arr);
+// 0: 11
+// 1: 12
+// 2: undefined
+// 空字符串
+// 11,12,
+```
 
 ```js
 // find + push
@@ -272,14 +291,15 @@ function isBigEnough(value, index, array) {
     array.shift();
   }
   console.log(`${index}: ${value}`);
-  return value > 11;
+  return value > 15;
 }
 let arr = [11, 12, 13];
 console.log(arr.find(isBigEnough));
 console.log(arr);
 // 0: 11
 // 1: 13
-// 13
+// 2: undefined
+// 空字符串
 // 12,13
 ```
 
@@ -300,4 +320,46 @@ console.log(arr);
 // 2: 12
 // 12
 // 10,11,12,13
+```
+
+
+## findIndex(callback(item[, index[, array]])[, this.Arg]) <sup>*ES6*</sup>
+
+* 遍历数组元素调用`callback`函数，返回使`callback`返回`true`(等价于`true`)的第一个元素的索引，否则返回`-1`；
+* 所有索引都会调用`callback`函数，所以对于稀疏数组，调用`findIndex`方法比`every`、`filter`要慢;
+* 在遍历开始后，添加到数组中的元素不会被`callback`访问到，例如`push`；
+* 在遍历开始后，被删除的元素仍会被访问到；:red_circle:
+* 被修改的元素传入`callback`的值是访问到他们那一刻的值；
+* 空数组调用`findIndex`返回`-1`；
+* 不改变原数组。
+
+
+## forEach(callback(item([, index[, array]])[, thisArg])
+
+* 遍历数组元素调用`callback`函数，没有办法中止或者跳出遍历，除了抛出一个异常；:red_circle:
+* 在遍历开始后，添加到数组中的元素不会被`callback`访问到，例如`push`；
+* 在遍历开始后，被删除的元素不会被访问到；
+* 被修改的元素传入`callback`的值是访问到他们那一刻的值；
+* 返回undefined；
+* 不可链式调用。:interrobang:
+
+
+## from(arrayLike[, mapFn[, thisArg]]) <sup>*ES6*</sup>
+
+* 通过以下方式来创建数组对象：
+  * 伪数组对象（拥有一个`length`属性和若干索引属性的任意对象）；
+  * 可迭代对象（如`Map`和`Set`等）；
+* `Array.from(obj, mapFn, thisArg)`就相当于`Array.from(obj).map(mapFn, thisArg)`；
+* from的length属性为1；
+* 返回新的数组实例；
+* 在`ES6`中，`Class`语法允许我们为内置类型（比如`Array`）和自定义类创建子类（`SubArray`）。这些子类会继承父类的静态方法，比如`SubArray.from()`，调用该方法后会返回子类（`SubArray`）的一个实例，而不是父类（`Array`）的实例。:interrobang:
+
+```js
+function combine() {
+  let arr = [].concat.apply([], arguments);
+  return Array.from(new Set(arr));
+}
+
+var m = [1, 2, 2], n = [2, 3, 3];
+combine(m, n);  // [1, 2, 3]
 ```
