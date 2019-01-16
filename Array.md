@@ -363,3 +363,75 @@ function combine() {
 var m = [1, 2, 2], n = [2, 3, 3];
 combine(m, n);  // [1, 2, 3]
 ```
+
+
+## includes(searchElement[, fromIndex = 0]) <sup>*ES6*</sup>
+
+* 判断数组中是否包含指定的值；
+* 如果`fromIndex`大于等于数组长度，则返回`false`，不会在数组中搜索；
+* 如果`fromIndex`小于`0`，且`this.length + fromIndex`小于`0`，则整个数组都会被搜索；
+* 通用方法，可被用于其他类型的对象；
+* 返回`true`或`false`。
+
+```js
+(function() {
+  [].includes.call(arguments, 'a');   // true
+  [].includes.call(arguments, 'd');   // false
+})('a', 'b', 'c')
+```
+
+
+## indexOf(item[, fromIndex = 0])
+
+* 在数组中找到指定元素的索引；
+* 如果`fromIndex`大于等于数组长度，则返回`-1`，不会在数组中搜索；
+* 如果`fromIndex`小于`0`，且`this.length + fromIndex`小于`0`，则整个数组都会被搜索；
+* 如果`fromIndex`小于`0`，搜索顺序仍然是从前向后；:red_circle:
+* 返回指定元素在数组中的索引，否则返回`-1`。
+
+```js
+[1 ,2, 3, 4, 5, 2].indexOf(2);      // 1
+[1, 2, 3, 4, 5, 2].indexOf(2, -4);  // 5
+[1, 2, 3, 4, 5 ,2].indexOf(1, -4);  // -1
+```
+
+```js
+// 找出指定元素出现的所有位置
+var indexes = [];
+var array = ['a', 'b', 'a', 'c', 'a', 'd'];
+var element = 'a';
+var idx = array.indexOf(element);
+while(idx != -1) {
+  indexes.push(idx);
+  idx = array.indexOf(element, idx + 1);
+}
+// indexes -> [0, 2, 4]
+```
+
+
+## isArray() <sup>*ES6*</sup>
+
+```js
+// Polyfill
+if (!Array.isArray) {
+  Array.isArray = function(arg) {
+    return Object.prototype.toString.call(arg) === '[object Array]';
+  }
+}
+```
+
+
+## join(separator = ',')
+
+* 使用分隔符将一个数组（或类数组对象）的所有元素连接成一个字符串并返回这个字符串；
+* 若数组长度为`0`，则返回空字符串；  
+* 数组中的`undefined`和`null`都会被转化成空字符串；
+* 不改变原数组。
+
+```js
+// 连接类数组对象
+function f(a, b, c) {
+  return Array.prototype.join.call(arguments);
+}
+f(1, 'a', true);  // '1,a,true'
+```
