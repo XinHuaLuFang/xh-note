@@ -435,3 +435,60 @@ function f(a, b, c) {
 }
 f(1, 'a', true);  // '1,a,true'
 ```
+
+
+## keys() <sup>*ES6*</sup>
+
+* 返回一个包含数组中每个索引键的Array Iterator对象；
+* Array Iterator会包含没有元素的索引。
+
+```js
+var arr = ['a', , 'c', undefined, false, null];
+Object.keys(arr);   // ['0', '2', '3', '4', '5']
+[...arr.keys()];    // [0, 1, 2, 3, 4, 5]
+```
+
+
+## lastIndexOf(element[, fromIndex = this.length - 1])
+
+* 返回指定元素在数组中的最后一个索引;
+* 从`this.length - 1`处开始向前查找；
+* 若`fromIndex >= this.length`，则从数组末尾向前查找； 
+* 若`fromIndex`为负数，且绝对值大于等于`this.length`，则返回`-1`；
+* 使用严格相等比较。
+
+
+## map(callback(item[, index[, array]])[, thisArg])
+
+* 遍历数组元素调用`callback`函数，每次的返回值组成新数组；
+* `callback`只会在有值的索引上被调用；
+* 在遍历开始后，添加到数组中的元素不会被`callback`访问到；
+* 在遍历开始后，被删除的元素不会被访问到；
+* 被修改的元素传入`callback`的值是访问到他们那一刻的值；
+* 不改变原数组。
+
+```js
+// parseInt的第二个参数`index`为进制
+['1', '2', '3'].map(parseInt);          // [1, NaN, NaN]
+
+['1', '2', '3'].map(Number);            // [1, 2, 3]
+
+['1.1', '2.2e2', '3e300'].map(Number);  // [1.1, 220, 3e+300]
+```
+
+
+## pop()
+
+* 删除数组最后一个元素并；
+* 返回被删除的元素；
+* 空数组返回`undefined`；
+* 会改变数组长度。
+
+
+
+
+
+
+
+
+## sort([compareFunction])
