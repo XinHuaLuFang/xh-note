@@ -57,7 +57,7 @@ typeof function() {}  // 'function'
 * 执行环境有助于确定应该何时释放内存。
 
 
-* 离开作用域的值将被自动标记为可回首，因此将在垃圾收集期间被删除。
+* 离开作用域的值将被自动标记为可回收，因此将在垃圾收集期间被删除。
 * 垃圾收集: 标记清除、引用计数（不再使用）。
 * 解除变量的引用(手动设置值为`null`)不仅有助于消除循环引用现象，而且对垃圾收集也有好处。
 
@@ -98,6 +98,90 @@ typeof function() {}  // 'function'
   * concat 不改变原数组
   * slice  不改变原数组 [start, end)
   * splice 删除/插入/替换
+  
+### Object
+
+* 属性类型
+  * 数据属性 `[[Configurable]]`、`[[Enumerable]]`、`[[Writable]]`、`[[Value]]`
+  * 访问器属性 `[[Configurable]]`、`[[Enumerable]]`、`[[Get]]`、`[[Set]]`
+  
+```js
+  Object.defineProperty(obj, property, {...});    // 定义单个属性
+  Object.defineProperties(obj, {...});  // 定义多个属性
+  
+  Object.getOwnPropertyDescriptor(obj, property);
+```
+  
+### 创建对象模式
+
+* 工厂模式
+
+  解决了创建多个相似对象的问题，但却未解决对象识别问题。
+  
+* 构造函数模式
+  
+  1. 创建一个新对象；
+  2. 将构造函数的作用域赋给新对象，this指向这个新对象；
+  3. 执行构造函数中的代码，为新对象添加属性；
+  4. 返回新对象。
+
+* 原型模式
+
+```js
+  function Person() {};
+  Person.prototype.name = 'Nicholoas';
+  Person.prototype.age = 29;
+  Person.prototype.job = 'Software Engineer';
+  Person.prototype.sayName = function() {
+    alert(this.name);
+  }
+  var person1 = new Person();
+  var person2 = new Person();
+  
+  Person.prototype.constructor === Person;  // true
+  
+  person1.__proto__ === Person.prototype;   // true
+  person2.__proto__ === Person.prototype;   // true
+  
+  Person.prototype.isPrototypeOf(person1);  // true
+  Person.prototype.isPrototypeOf(person2);  // true
+  
+  Object.getPrototypeOf(person1) === Person.prototype // true
+  
+  person1.name = 'Greg';
+  alert(person1.name);  // 'Greg' --来自实例，实例属性屏蔽原型的同名属性
+  person1.hasOwnProperty('name');   // true
+  alert('name' in person1);         // true 单独使用时，in 操作符会在通过对象能够访问给定属性时返回 true
+  
+  delete person1.name;
+  alert(person1.name);  // 'Nicholas' --来自原型
+  person1.hasOwnProperty('name');   // false
+  alert('name' in person1);         // true
+  
+  person1.name = 'Greg';
+  for (var key in person1) {
+    console.log(person1[key]);
+  } 
+  // 'Greg'
+  // 29
+  // 'Software Engineer'
+  // f() { alert(this.name); }
+  // for-in 循环对象时，返回的是所有能通过对象访问的、可枚举的属性，包括实例属性和原型属性。
+  
+  var keys = Object.keys(Person.prototype); // ['name', 'age', 'job', 'sayName']
+  person1.name = 'Rob';
+  person1.age = 18;
+  Object.defineProperty(person1, {
+    pty: { value: 'pty_value', enumerable: true },
+    ptya: { value: 'ptya_value' },
+    ptyb: { get: function() { return 'ptyb_value' }}
+  });
+  var p1keys = Object.keys(person1);  // ['name', 'age', 'pty']
+  // Object.keys() 可获取对象上所有可枚举的实例属性。
+  
+  var p1keys = Object.getOwnPropertyNames(person1);  // ['name', 'age', 'pty', 'ptya', 'ptyb']
+  // Object.getOwnPropertyNames() 可获取对象上所有的实例属性，无论是否可枚举。
+```
 
 
 ## 题目
@@ -111,7 +195,22 @@ typeof function() {}  // 'function'
   * 使用数组字面量表示法
 
 3. [以下代码的结果](http://jsrun.net/uuhKp/edit)
-  ```
+  ```js
     [].copyWithin.call({3: 1, length: 5}, 0, 3);
+  ```
+  
+4. 多个对象实例共享原型所保存的属性和方法的原理
+
+  读取对象的属性时，先从对象实例本身搜索，若找到则返回值，否则从原型对象中搜索。
+  
+5. delete person1.name 访问 person1.name 结果
+
+  结果为 person1.__proto__.name 的值
+  
+6. 判断属性存在于原型中
+  ```js
+    function hasPrototypeProperty(object, name) {
+      return !object.hasOwnProperty(name) && (name in object);
+    }
   ```
 
