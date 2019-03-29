@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<script src="./myjq.js"></script>
+<script>
+  console.group('trim');
+  console.log(`'aaa' => ${$.trim('aaa')}`);
+  console.log(`'  a aa  a  ' => ${$.trim('  a aa  a  ')}`);
+  console.groupEnd();
+  
+  console.group('each');
+  $.each(['a', 'b', 'c', 'd'], function(index, value) {
+    console.log(`${index}: ${value}`);
+  });
+  console.log('------');
+  $.each(['a', 'b', 'c', 'd'], function(arg1, arg2, arg3) {
+    console.log(`${this} - ${arg1} - ${arg2} - ${arg3}`);
+  }, ['x', 'y', 'z']);
+  console.log('------');
+  $.each(['a', 'b', 'c', 'd'], function(index, value) {
+    console.log(`${index}: ${value}`);
+    if (value === 'c') {
+      return false;
+    }
+  });
+  console.groupEnd();
+</script>
+</body>
+</html>
