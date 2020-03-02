@@ -2,6 +2,8 @@
 
 ##### 快捷键
 
-删除行 Cmd + d
-Move Line Up Cmd + ⬆️
-Move Line Down Cmd + ⬇️
+| comment | mac | windows |
+|------|------|------|
+| delete line | Cmd + D | Alt + D |
+| Move Line Up | Cmd + Up | Alt + Up |
+| Move Line Down | Cmd + Down | Alt + Down |
