@@ -7,6 +7,8 @@
 | delete line | Cmd + D | Alt + D |
 | Move Line Up | Cmd + Up | Alt + Up |
 | Move Line Down | Cmd + Down | Alt + Down |
+| add bookmarkN | Ctrl + Shift + N | |
+| go bookmarkN | Ctrl + N | |
 
 ##### Live Templates
 
