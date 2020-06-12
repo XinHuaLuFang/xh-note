@@ -9,7 +9,7 @@
 
 ### 简单的数据共享
 ```js
-// mixin.js
+// store.js
 export default {
   var1: '',
   var2: '',
@@ -19,11 +19,11 @@ export default {
 // component-a
 <input v-model="dataA.var1" />
 
-import mixin from './mixin'
+import store from './store'
 export default {
   data() {
     return {
-      dataA: mixin
+      dataA: store
     }
   }
 }
@@ -31,11 +31,11 @@ export default {
 // component-b
 <input v-model="dataB.var1" />
 
-import mixin from './mixin'
+import store from './store'
 export default {
   data() {
     return {
-      dataB: mixin
+      dataB: store
     }
   }
 }
