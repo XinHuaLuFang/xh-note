@@ -6,7 +6,12 @@ function set(key, val) {
 }
 
 function get(key) {
-  return atob(localStorage.getItem(btoa(key)))
+  const val = localStorage.getItem(btoa(key))
+  if (val === null) {
+    return ''
+  } else {
+    return atob(val)
+  }
 }
 
 function remove(key) {
