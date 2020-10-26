@@ -10,3 +10,11 @@ docker run --name nginx-sentosa -p 8888:80 -v d:\docker\nginx:/usr/share/nginx/h
 ## docker-gitlab
 
 - [Install](https://hub.docker.com/_/gitlab-community-edition)
+
+## 安装vim
+```bash
+apt-get update
+apt-get upgrade
+
+apt-get install vim
+```
