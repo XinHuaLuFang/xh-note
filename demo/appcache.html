@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" manifest="./offline.appcache">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link rel="stylesheet" href="./file.css">
+</head>
+<body>
+<div>applicationCache</div>
+<div>checking <span id="dom1">等待</span></div>
+<div>error <span id="dom2">等待</span></div>
+<div>noupdate <span id="dom3">等待</span></div>
+<div>downloading <span id="dom4">等待</span></div>
+<div>progress <span id="dom5">等待</span></div>
+<div>updateready <span id="dom6">等待</span></div>
+<div>cached <span id="dom7">等待</span></div>
+</body>
+<script>
+window.applicationCache.addEventListener('checking', () => {
+  document.getElementById('dom1').innerText = '已触发'
+})
+</script>
+</html>

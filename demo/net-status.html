@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+当前网络状态: <span id="result"></span>
+</body>
+<script>
+window.onload = function() {
+  document.getElementById('result').innerText = navigator.onLine ? '在线' : '离线'
+}
+window.addEventListener('online', function() {
+  document.getElementById('result').innerText = '在线'
+})
+window.addEventListener('offline', function() {
+  document.getElementById('result').innerText = '离线'
+})
+</script>
+</html>

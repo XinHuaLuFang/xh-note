@@ -24,3 +24,7 @@ body {
   }
 }
 ```
+
+## 使用`js`获取`dom`样式
+1. el.style 只能获取到行内样式
+2. [el.getComputedStyle](https://developer.mozilla.org/zh-cn/docs/web/api/window/getcomputedstyle) 获取到元素的最终样式
