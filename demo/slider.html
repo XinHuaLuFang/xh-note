@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+  html, body {
+    margin: 0;
+    padding: 0;
+  }
+  .content {
+    width: 100vw;
+    overflow: hidden;
+  }
+  .slider {
+    width: 200vw;
+    position: relative;
+    left: -33.33vw;
+    transition: left .5s linear;
+  }
+  .a {
+    width: 33.33vw;
+    height: 100px;
+    background: lightsalmon;
+    float: left;
+  }
+  .b {
+    width: 33.33vw;
+    height: 100px;
+    background: lightgreen;
+    float: left;
+  }
+  .c {
+    width: 33.33vw;
+    height: 100px;
+    background: lightseagreen;
+    float: left;
+  }
+  </style>
+</head>
+<body>
+<div class="content">
+  <div class="slider">
+    <div class="c">c</div>
+    <div class="a">a</div>
+    <div class="b">b</div>
+    <div class="c">c</div>
+    <div class="a">a</div>
+    <div class="b">b</div>
+  </div>
+</div>
+<button onclick="handleLeft()">左</button>
+<button onclick="handleRight()">右</button>
+<script>
+var count = 1
+function handleLeft() {
+  count += 1
+  var slider = document.querySelector('.slider')
+  slider.style.left = -33.33 * count + 'vw'
+}
+function handleRight() {}
+</script>
+</body>
+</html>
