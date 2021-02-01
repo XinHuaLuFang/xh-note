@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+  #pagination {
+    text-align: center;
+    user-select: none;
+  }
+  #pagination span {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    background: #FFF;
+    text-align: center;
+    margin-right: 10px;
+    cursor: pointer;
+    border: 1px solid #EBEBEB;
+    font-size: 16px;
+    font-family: Arial;
+    color: #999;
+  }
+  #pagination span.active {
+    background: #ED6D0F;
+    border-color: #ED6D0F;
+    color: #FFF;
+  }
+  #pagination span.disabled {
+    cursor: not-allowed;
+  }
+  </style>
+</head>
+<body>
+<div id="pagination"></div>
+</body>
+<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script>
+var pageNum = 1
+var pageSize = 6
+var total = 36
+var maxPageNum = Math.ceil(total / pageSize)
+console.log(maxPageNum)
+function render() {
+  var html = ''
+  if (pageNum === 1) {
+    html += '<span class="disabled">&lt;</span>'
+  } else {
+    html += '<span onclick="goPrev()">&lt;</span>'
+  }
+  if (maxPageNum < 5) {
+    for (var i = 1; i <= maxPageNum; i++) {
+      if (pageNum === i) {
+        html += '<span class="active" onclick="go('+ i +')">' + i + '</span>'
+      } else {
+        html += '<span onclick="go('+ i +')">' + i + '</span>'
+      }
+    }
+  } else {
+    var min = Math.min(pageNum + 2, maxPageNum)
+    if (pageNum < 3) {
+      for (var i = 1; i <= 5; i++) {
+        if (pageNum === i) {
+          html += '<span class="active" onclick="go('+ i +')">' + i + '</span>'
+        } else {
+          html += '<span onclick="go('+ i +')">' + i + '</span>'
+        }
+      }
+    } else {
+      for (var i = min - 4; i <= min; i++) {
+        if (pageNum === i) {
+          html += '<span class="active" onclick="go('+ i +')">' + i + '</span>'
+        } else {
+          html += '<span onclick="go('+ i +')">' + i + '</span>'
+        }
+      }
+    }
+  }
+  if (pageNum === maxPageNum) {
+    html += '<span class="disabled">&gt;</span>'
+  } else {
+    html += '<span onclick="goNext()">&gt;</span>'
+  }
+  $('#pagination').html(html)
+}
+function go(i) {
+  if (i === pageNum) return
+  pageNum = i
+  render()
+}
+function goPrev() {
+  pageNum--
+  render()
+}
+function goNext() {
+  pageNum++
+  render()
+}
+$(function() {
+  render()
+})
+
+</script>
+</html>
