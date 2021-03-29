@@ -1,0 +1,31 @@
+{
+  "name": "xh-note",
+  "description": "学习过程中的笔记。",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/XinHuaLuFang/xh-note.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/XinHuaLuFang/xh-note/issues"
+  },
+  "homepage": "https://github.com/XinHuaLuFang/xh-note#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.13.10",
+    "@babel/core": "^7.13.13",
+    "@babel/preset-env": "^7.13.12",
+    "@babel/preset-react": "^7.13.13"
+  },
+  "dependencies": {
+    "@babel/polyfill": "^7.12.1",
+    "babel-cli": "^6.26.0",
+    "babel-preset-react-app": "^3.1.2"
+  }
+}
